@@ -1,0 +1,41 @@
+﻿@model Library.Models.book
+@{
+    ViewBag.Title = "details";
+    Layout = "~/Views/shared/_lay.cshtml";
+}
+
+@section head{
+    <h1>book details</h1>
+    }     
+
+<div class="container">    
+    <div style="float: right;position: relative;" class="col col-md-6">
+        <img class="card-img-top img-fluid img-responsive rounded" src="@Model.img_url" alt="@Model.name" />
+    </div>  
+    <div  class="card col col-md-6">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>@Html.DisplayNameFor(b => Model.name)</th>
+                    <th>@Html.DisplayFor(b => @Model.name)</th>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(b => Model.isbn)</td>
+                    <td>@Html.DisplayFor(b => @Model.isbn)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(b => Model.author)</td>
+                    <td>@Html.DisplayFor(b => @Model.author)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(b => Model.desc)</td>
+                    <td>@Html.DisplayFor(b => @Model.desc)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(b => Model.employee)</td>
+                    <td>@Html.DisplayFor(b => @Model.employee.name)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</div>

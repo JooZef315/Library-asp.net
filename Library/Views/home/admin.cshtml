@@ -1,0 +1,26 @@
+﻿@model List<Library.Models.book>
+@{
+    ViewBag.Title = "admin";
+    Layout = "~/Views/shared/_lay.cshtml";    
+}
+
+
+@section head{
+    <h1>administration</h1>
+    <h3 class="text-warning">welcome @Session["empName"]!</h3>    
+    @Html.ActionLink("add book", "add", "home", new { @class = "btn btn-outline-warning btn-lg" })
+}
+
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="card col-sm-12 col-md-3">
+            <img class="card-img-top img-fluid img-responsive rounded" style="height:420px;" src="@item.img_url" alt="Alternate Text" />
+            <div class="card-body">
+                <h5 class="card-title">@item.name</h5>
+                @Html.ActionLink("details", "details", "home", new { isbn = item.isbn }, new { @class = "btn btn-info" })
+                @Html.ActionLink("remove book", "removeBook", "home", new { isbn = item.isbn }, new { @class = "btn btn-danger", onclick = "return confirm('R U sure?')" })
+            </div>
+        </div>
+    }
+</div>

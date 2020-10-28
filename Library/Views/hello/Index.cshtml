@@ -1,0 +1,136 @@
+﻿@model Library.Models.visitor
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/shared/_lay.cshtml";
+}
+@section head{
+    <div class="row row-header">
+        <div class="col-12 col-sm-6">
+            <h1>Welcome to our Library!</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, 
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat 
+            </p>
+        </div>
+
+        <div class="col offset-sm-1 col-sm-4 align-self-center">                  
+            @if (Session["emp"] != null)
+            {                    
+                <a href="/home/admin" class="btn btn-outline-warning btn-lg mb-2">administration board</a><br />                    
+            }
+            else if (Session["user"] != null)
+            {
+                <a href="/home/lib" class="btn btn-outline-warning btn-lg mb-2">Library</a><br />
+            }
+            else
+            {
+                <a role="button" class="btn btn-warning btn-lg" id="mod1call" data-toggle="modal" data-target="#mod1">
+                    <span class="fa fa-sign-in"></span>
+                    <strong style="color:#fff" class="text-light">Log in</strong>
+                </a>
+                <p>have no account yet?<br /><strong>register below!</strong></p>
+            }                
+        </div>
+    </div>
+    <div id="mod1" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-light">
+                    <h4 class="modal-title">Log in</h4>
+                    <button type="button" class="close" data-dismiss="modal">X</button>
+                </div>
+                <div class="modal-body">
+                    <form action="/hello/LogIn" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label class="col-12 col-md-2 col-form-label font-weight-bold text-secondary">Log in as</label>
+                                <select name="LogAs" id="LogAs">
+                                    <option value="employees">Employee</option>
+                                    <option value="visitors">User</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(e => e.email, new { @class = "col-sm-2 col-form-label font-weight-bold text-secondary" })
+                                @Html.EditorFor(e => e.email, new { @class = "col-sm-8 form-control" })
+                                @Html.ValidationMessageFor(e => e.email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(e => e.password, new { @class = "col-sm-2 col-form-label font-weight-bold text-secondary" })
+                                @Html.EditorFor(e => e.password, new { @class = "col-sm-8 form-control" })
+                                @Html.ValidationMessageFor(e => e.password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">cancel</button>
+                            <button type="submit" class="btn btn-primary ml-1">sign in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="container">
+    @if (Session["user"] != null)
+    {
+        <h3>hi! @Session["name"]</h3><br /><h5>start browsing our books </h5>
+        <a href="/home/Mylib" class="btn btn-info btn-lg mt-2">My Library</a><br />
+    }
+    else if (Session["emp"] != null)
+    {
+        <h3>hi! @Session["empName"]</h3>
+        <h3>employee Id : @Session["emp"]</h3>
+    }
+    else
+    {
+        <h2 class="text-warning"><u>User Registration</u></h2>
+        using (Html.BeginForm("Registration", "hello", FormMethod.Post))
+        {
+        <div class="form-group">
+            @Html.LabelFor(e => e.Fname, new { @class = "col-sm-2 col-form-label" })
+            @Html.EditorFor(e => e.Fname, new { @class = "form-control" })
+            @Html.ValidationMessageFor(e => e.Fname, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.Lname, new { @class = "col-sm-2 col-form-label" })
+            @Html.EditorFor(e => e.Lname, new { @class = "form-control" })
+            @Html.ValidationMessageFor(e => e.Lname, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.age, new { @class = "col-sm-2 col-form-label" })
+            @Html.EditorFor(e => e.age, new { @class = "form-control" })
+            @Html.ValidationMessageFor(e => e.age, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.email, new { @class = "col-sm-2 col-form-label" })
+            @Html.EditorFor(e => e.email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(e => e.email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.password, new { @class = "col-sm-2 col-form-label" })
+            @Html.EditorFor(e => e.password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(e => e.password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.cpassword, new { @class = "col-sm-2 col-form-label" })
+            @Html.EditorFor(e => e.cpassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(e => e.cpassword, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.gander, new { @class = "col-sm-2 col-form-label" })
+            <select name="gander" id="gander">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+            @Html.ValidationMessageFor(e => e.gander, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+        </div>
+        }
+    }
+</div> 
